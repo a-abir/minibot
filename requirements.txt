@@ -1,2 +1,2 @@
-adafruit-circuitpython-servokit == **
-pygame == **
+adafruit-circuitpython-servokit==*
+pygame==*
