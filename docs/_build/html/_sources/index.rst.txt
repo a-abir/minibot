@@ -1,0 +1,42 @@
+.. Minibot documentation master file, created by
+   sphinx-quickstart on Wed Jul 17 19:58:57 2019.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Documentation for MiniBot!
+===========================
+
+- Minibot GitHub : https://github.com/Atikul99/minibot
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Setup
+
+   Prerequisites
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Programming
+
+   programming
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Pacakge minilib
+
+   minilib
+
+
+
+
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

@@ -1,7 +1,6 @@
 from miniLib import ArcadeDrive, Servo, Joystick
-
 servo = Servo()
-leftServo = servo.newServo(0)
+leftServo = servo.newServo()
 rightServo = servo.newServo(1)
 
 jstick = Joystick()
