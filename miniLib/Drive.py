@@ -4,9 +4,9 @@ class ArcadeDrive:
         Setup Arcade drive
 
         :param LeftServo: Servo for the left side drive
-        :type LeftServo: continousServo
+        :type LeftServo: continuous_servo
         :param rightServo: Servo for the right side drive
-        :type rightServo: continousServo
+        :type rightServo: continuous_servo
         '''
         self.right = rightServo
         self.left = LeftServo
