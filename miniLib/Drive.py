@@ -58,7 +58,7 @@ class TankDrive:
 
     def drive(self, leftPower, rightPower):
         '''
-        Drive given the forward and steer axis power
+        Drive given the left and right axis power
         Meant to be run inside a while loop
 
         :param leftPower: Forward power from joystick axis
