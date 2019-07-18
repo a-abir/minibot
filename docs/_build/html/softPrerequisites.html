@@ -1,0 +1,251 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Software Prerequisites &mdash; Minibot 0.01a documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Setup" href="programming.html" />
+    <link rel="prev" title="Hardware Prerequisites" href="hardPrerequisites.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Minibot
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Setup Raspberry Pi</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="hardPrerequisites.html">Hardware Prerequisites</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Software Prerequisites</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#update-distribution-packages">Update distribution packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-smbus-i2c-tools">Install smbus i2c-tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#i2c-kernal-support">I2C Kernal Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-adafruit-servokit">Install adafruit-servokit</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Programming</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="programming.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sampleCode.html">Sample code</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Pacakge minilib</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="minilib.html">miniLib/__init__.py</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Minibot</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Software Prerequisites</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/softPrerequisites.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="software-prerequisites">
+<h1>Software Prerequisites<a class="headerlink" href="#software-prerequisites" title="Permalink to this headline">¶</a></h1>
+<p><em>Please run the following commands to setup the raspberry pi for code deployment</em></p>
+<div class="section" id="update-distribution-packages">
+<h2>Update distribution packages<a class="headerlink" href="#update-distribution-packages" title="Permalink to this headline">¶</a></h2>
+<p><em>First lets update your distribution packages</em></p>
+<p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">update;</span> <span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">upgrade</span></code></p>
+</div>
+<div class="section" id="install-smbus-i2c-tools">
+<h2>Install smbus i2c-tools<a class="headerlink" href="#install-smbus-i2c-tools" title="Permalink to this headline">¶</a></h2>
+<p><em>Next run the following commands to add SMBus and I2C support to Python</em></p>
+<p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">python-smbus</span></code>
+<code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">i2c-tools</span></code></p>
+</div>
+<div class="section" id="i2c-kernal-support">
+<h2>I2C Kernal Support<a class="headerlink" href="#i2c-kernal-support" title="Permalink to this headline">¶</a></h2>
+<p><em>Installing Kernel Support for I2C devides</em></p>
+<p><em>Run the following command for gui interface</em></p>
+<p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">raspi-config</span></code></p>
+<p><em>On the GUI select ``Interfacing Options`` followed by ``I2C``</em></p>
+<p><em>When promped to Enable I2C select ``yes``</em></p>
+<p><em>Reboot device to ensure I2C device support</em></p>
+<p><em>To reboot run the following command</em></p>
+<p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">reboot</span></code></p>
+<p><em>Upon boot run the following command to see all the connected devices</em></p>
+<p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">i2cdetect</span> <span class="pre">-y</span> <span class="pre">1</span></code></p>
+<p><em>it should show up at 0x40 (binary 1000000) as follows:</em></p>
+<img alt="https://cdn-learn.adafruit.com/assets/assets/000/022/057/medium800/raspberry_pi_i2cdetect.png?1420234437" src="https://cdn-learn.adafruit.com/assets/assets/000/022/057/medium800/raspberry_pi_i2cdetect.png?1420234437" />
+</div>
+<div class="section" id="install-adafruit-servokit">
+<h2>Install adafruit-servokit<a class="headerlink" href="#install-adafruit-servokit" title="Permalink to this headline">¶</a></h2>
+<p><em>To interact with the servos install adafruit-servokit by running the following command</em></p>
+<p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">pip3</span> <span class="pre">install</span> <span class="pre">adafruit-circuitpython-servokit</span></code></p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="programming.html" class="btn btn-neutral float-right" title="Setup" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="hardPrerequisites.html" class="btn btn-neutral float-left" title="Hardware Prerequisites" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Abir
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

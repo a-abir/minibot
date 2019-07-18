@@ -1,5 +1,5 @@
-Prerequisites
-==============
+Software Prerequisites
+======================
 *Please run the following commands to setup the raspberry pi for code deployment*
 
 Update distribution packages
@@ -39,6 +39,10 @@ I2C Kernal Support
 *Upon boot run the following command to see all the connected devices*
 
 ``sudo i2cdetect -y 1``
+
+*it should show up at 0x40 (binary 1000000) as follows:*
+
+.. image:: https://cdn-learn.adafruit.com/assets/assets/000/022/057/medium800/raspberry_pi_i2cdetect.png?1420234437
 
 Install adafruit-servokit
 *************************
