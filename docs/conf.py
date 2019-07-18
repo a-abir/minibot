@@ -36,8 +36,8 @@ release = '0.01a'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
+master_doc = 'index'
 autoclass_content = 'both'
-
 extensions = [
     'sphinx.ext.autodoc',
     # 'sphinx.ext.intersphinx',

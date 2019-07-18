@@ -1,1 +1,2 @@
+pygame
 adafruit-circuitpython-servokit
