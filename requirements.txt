@@ -1,2 +1,2 @@
-adafruit-circuitpython-servokit==*
+adafruit-circuitpython-servokit==1.1.0
 pygame==*
