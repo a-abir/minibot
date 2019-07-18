@@ -5,24 +5,29 @@ Setup
 Install git
 ***********
 
-*#First lets install git*
+*First lets install git*
 
 ``sudo apt install git``
 
-Downlaad package
-***********
+Download package
+****************
 
-*#Next lets downlad the package*
+*Next lets downlad the package*
 
 ``git clone https://github.com/atikul99/minibot``
 
-*#Next lets install the package*
+Install package
+****************
+
+*Next lets install the package*
 
 ``cd minibot``
 
 ``pip3 install --user .``
 
-**Run all at once**
+
+Run all at once
+***************
 
 .. code-block:: bash
 

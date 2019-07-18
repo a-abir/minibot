@@ -2,14 +2,23 @@ Prerequisites
 ==============
 *Please run the following commands to setup the raspberry pi for code deployment*
 
-*Update your distribution packages*
+Update distribution packages
+****************************
+
+*First lets update your distribution packages*
 
 ``sudo apt update; sudo apt upgrade``
 
-*Run the following commands to add SMBus and I2C support to Python*
+Install smbus i2c-tools
+***********************
+
+*Next run the following commands to add SMBus and I2C support to Python*
 
 ``sudo apt-get install python-smbus``
 ``sudo apt-get install i2c-tools``
+
+I2C Kernal Support
+******************
 
 *Installing Kernel Support for I2C devides*
 
@@ -30,6 +39,9 @@ Prerequisites
 *Upon boot run the following command to see all the connected devices*
 
 ``sudo i2cdetect -y 1``
+
+Install adafruit-servokit
+*************************
 
 *To interact with the servos install adafruit-servokit by running the following command*
 

@@ -11,7 +11,7 @@ Documentation for MiniBot!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Setup
+   :caption: Setup Raspberry Pi
 
    Prerequisites
 
@@ -21,6 +21,7 @@ Documentation for MiniBot!
    :caption: Programming
 
    programming
+   sampleCode
 
 
 .. toctree::

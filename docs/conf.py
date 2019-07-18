@@ -36,11 +36,13 @@ release = '0.01a'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
+autoclass_content = 'both'
+
 extensions = [
     'sphinx.ext.autodoc',
     # 'sphinx.ext.intersphinx',
     'sphinx.ext.coverage',
-    'sphinx.ext.imgmath',
+    # 'sphinx.ext.imgmath',
     # 'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
     # 'sphinx.ext.githubpages',
@@ -75,6 +77,7 @@ html_theme_options = {
     'logo_only': False,
     'display_version': True,
 }
+
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
