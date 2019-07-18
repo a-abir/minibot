@@ -10,6 +10,13 @@ miniLib.ArcadeDrive
    :undoc-members:
    :members:
 
+miniLib.TankDrive
+*******************
+
+.. autoclass:: miniLib.TankDrive
+   :undoc-members:
+   :members:
+
 miniLib.Servo
 *******************
 

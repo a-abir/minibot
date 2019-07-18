@@ -6,7 +6,7 @@ class Joystick:
         '''
         Setup Joystick control using pygame
         '''
-        pygame.Joystick.init()
+        pygame.joystick.init()
 
     def info(self):
         '''
