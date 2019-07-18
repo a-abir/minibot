@@ -28,7 +28,13 @@ I2C Kernal Support
 
 *On the GUI select ``Interfacing Options`` followed by ``I2C``*
 
+.. image:: https://cdn-learn.adafruit.com/assets/assets/000/045/258/medium800/learn_raspberry_pi_interfacing.png?1502764684
+
+.. image:: https://cdn-learn.adafruit.com/assets/assets/000/022/832/medium800/learn_raspberry_pi_i2c.png?1423001363
+
 *When promped to Enable I2C select ``yes``*
+
+.. image:: https://cdn-learn.adafruit.com/assets/assets/000/022/834/medium800/learn_raspberry_pi_wouldyoukindly.png?1423001393
 
 *Reboot device to ensure I2C device support*
 
@@ -44,9 +50,31 @@ I2C Kernal Support
 
 .. image:: https://cdn-learn.adafruit.com/assets/assets/000/022/057/medium800/raspberry_pi_i2cdetect.png?1420234437
 
+
 Install adafruit-servokit
 *************************
 
 *To interact with the servos install adafruit-servokit by running the following command*
 
 ``sudo pip3 install adafruit-circuitpython-servokit``
+
+
+Run all at once
+***************
+
+.. code-block:: bash
+
+   # Installations
+   sudo apt update; sudo apt upgrade
+   sudo apt-get install python-smbus
+   sudo apt-get install i2c-tools
+   sudo pip3 install adafruit-circuitpython-servokit
+   # configurations <Requires user input>
+   sudo raspi-config
+   sudo reboot
+   sudo i2cdetect -y 1
+
+
+.. __: https://learn.adafruit.com/adafruit-16-channel-pwm-servo-hat-for-raspberry-pi/attach-and-test-the-hat
+*Refer to* `adafruit's`__ *website for furather guidence*
+

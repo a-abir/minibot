@@ -29,3 +29,7 @@ Connecting a Servo
 *Works with any servo that can be powered by 5V and take 3.3V logic level signals*
 
 .. image:: https://cdn-learn.adafruit.com/assets/assets/000/022/047/medium800/raspberry_pi_oneservo.jpg?1420231171
+
+.. __: https://learn.adafruit.com/adafruit-16-channel-pwm-servo-hat-for-raspberry-pi/powering-servos
+*Refer to* `adafruit's`__ *website for furather guidence*
+
