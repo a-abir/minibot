@@ -34,7 +34,7 @@ Documentation for MiniBot!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Pacakge minilib
+   :caption: Package minilib
 
    minilib
 

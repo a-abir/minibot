@@ -20,7 +20,7 @@ Install smbus i2c-tools
 I2C Kernal Support
 ******************
 
-*Installing Kernel Support for I2C devides*
+*Installing Kernel Support for I2C devices*
 
 *Run the following command for gui interface*
 
@@ -32,7 +32,7 @@ I2C Kernal Support
 
 .. image:: https://cdn-learn.adafruit.com/assets/assets/000/022/832/medium800/learn_raspberry_pi_i2c.png?1423001363
 
-*When promped to Enable I2C select ``yes``*
+*When prompted to Enable I2C select ``yes``*
 
 .. image:: https://cdn-learn.adafruit.com/assets/assets/000/022/834/medium800/learn_raspberry_pi_wouldyoukindly.png?1423001393
 
@@ -76,5 +76,5 @@ Run all at once
 
 
 .. __: https://learn.adafruit.com/adafruit-16-channel-pwm-servo-hat-for-raspberry-pi/attach-and-test-the-hat
-*Refer to* `adafruit's`__ *website for furather guidence*
+*Refer to* `adafruit's`__ *website for further guidance*
 

@@ -12,7 +12,7 @@ Install git
 Download package
 ****************
 
-*Next lets downlad the package*
+*Next lets download the package*
 
 ``git clone https://github.com/atikul99/minibot``
 

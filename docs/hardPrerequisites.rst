@@ -1,6 +1,6 @@
 Hardware Prerequisites
 ======================
-*Setup Faspberry PI for development*
+*Setup Raspberry PI for development*
 
 Powering Servos / PWM
 **********************
@@ -31,5 +31,5 @@ Connecting a Servo
 .. image:: https://cdn-learn.adafruit.com/assets/assets/000/022/047/medium800/raspberry_pi_oneservo.jpg?1420231171
 
 .. __: https://learn.adafruit.com/adafruit-16-channel-pwm-servo-hat-for-raspberry-pi/powering-servos
-*Refer to* `adafruit's`__ *website for furather guidence*
+*Refer to* `adafruit's`__ *website for further guidance*
 
