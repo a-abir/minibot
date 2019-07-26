@@ -1,17 +1,46 @@
-.. deflection documentation master file, created by
-   sphinx-quickstart on Fri Jul 19 14:25:50 2019.
+.. Minibot documentation master file, created by
+   sphinx-quickstart on Wed Jul 17 19:58:57 2019.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to utk-deflection's documentation!
-==========================================
+Documentation for MiniBot!
+===========================
+
+ .. |docs| image:: https://readthedocs.org/projects/minibot/badge/?version=latest
+ .. |minibot| image:: https://img.shields.io/badge/minibot-OK-brightgreen.svg
+
+|docs| |minibot|
+
+
+
+- Minibot GitHub : https://github.com/Atikul99/minibot
+
 
 .. toctree::
-   :maxdepth: 3
-   :caption: Table Contents:
+   :maxdepth: 2
+   :caption: Setup Raspberry Pi
 
-   deflection
-   howtouse
+   hardPrerequisites
+   softPrerequisites
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Programming
+
+   programming
+   sampleCode
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Package minilib
+
+   minilib
+
+
+
+
 
 
 Indices and tables
