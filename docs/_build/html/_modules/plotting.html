@@ -1,0 +1,741 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>plotting &mdash; deflection 0.01a documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> deflection
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../deflection.html">Code Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtouse.html">How to use the app</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">deflection</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>plotting</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for plotting</h1><div class="highlight"><pre>
+<span></span><span class="c1"># coding: utf-8</span>
+<span class="c1"># usr/bin/python37</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Determine Stress, Strain, Youngs Modulus</span>
+<span class="sd">form Load and Deflection as input</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="kn">from</span> <span class="nn">matplotlib.backends.backend_tkagg</span> <span class="k">import</span> <span class="n">FigureCanvasTkAgg</span><span class="p">,</span> <span class="n">NavigationToolbar2Tk</span>
+<span class="kn">from</span> <span class="nn">tkinter</span> <span class="k">import</span> <span class="n">messagebox</span><span class="p">,</span> <span class="n">Button</span><span class="p">,</span> <span class="n">Frame</span><span class="p">,</span> <span class="n">Tk</span><span class="p">,</span> <span class="n">BooleanVar</span><span class="p">,</span> <span class="n">Checkbutton</span><span class="p">,</span> <span class="n">Entry</span><span class="p">,</span> <span class="n">Label</span>
+<span class="kn">from</span> <span class="nn">tkinter.filedialog</span> <span class="k">import</span> <span class="n">askopenfilename</span>  <span class="c1"># Collect User input</span>
+<span class="kn">from</span> <span class="nn">matplotlib.offsetbox</span> <span class="k">import</span> <span class="n">AnchoredText</span>   <span class="c1"># Show more details on figure</span>
+<span class="kn">from</span> <span class="nn">matplotlib.figure</span> <span class="k">import</span> <span class="n">Figure</span>
+<span class="kn">from</span> <span class="nn">csv</span> <span class="k">import</span> <span class="n">reader</span> <span class="k">as</span> <span class="n">csv_reader</span>  <span class="c1"># Read csv file</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span> <span class="c1">#Get timestamp</span>
+<span class="kn">from</span> <span class="nn">sys</span> <span class="k">import</span> <span class="n">exit</span>  <span class="c1"># Exit on error</span>
+
+
+<span class="kn">import</span> <span class="nn">matplotlib.animation</span> <span class="k">as</span> <span class="nn">anim</span>
+<span class="c1"># import matplotlib.pyplot as plt  # Show the figure</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>  <span class="c1"># Required for Matplotlib and to run complex calculations</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">abspath</span><span class="p">,</span> <span class="n">isdir</span><span class="p">,</span> <span class="n">exists</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">use</span> <span class="k">as</span> <span class="n">matuse</span>
+<span class="n">matuse</span><span class="p">(</span><span class="s1">&#39;TkAgg&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="ElasticModulus"><a class="viewcode-back" href="../deflection.html#plotting.ElasticModulus">[docs]</a><span class="k">class</span> <span class="nc">ElasticModulus</span><span class="p">:</span>
+    <span class="c1"># Initialize the plot figure</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">Figure</span><span class="p">()</span>
+    <span class="n">sub</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Plot Stress Strain and Elastic modulus</span>
+
+<span class="sd">        :param master: tkinter Tk object to push widgets to</span>
+<span class="sd">        :type master: tk.TK</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">master</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">withdraw</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">readFile</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">deiconify</span><span class="p">()</span>
+
+        <span class="c1"># Customizable Variables</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">materialArea</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">offsetLinePercent</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alphaValue</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">derivativeSmoothness</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">calculate</span><span class="p">()</span>
+        <span class="c1"># Initialize the Tk elements</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setupTk</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+
+<div class="viewcode-block" id="ElasticModulus.setupTk"><a class="viewcode-back" href="../deflection.html#plotting.ElasticModulus.setupTk">[docs]</a>    <span class="k">def</span> <span class="nf">setupTk</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Setup Tkinter Integration with Matplotlib</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="c1"># Top Frame</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">topFrame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Material Area</span>
+        <span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">topFrame</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Material Area: &quot;</span><span class="p">,</span>
+              <span class="n">background</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">materialAreaWidget</span> <span class="o">=</span> <span class="n">Entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">topFrame</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">materialAreaWidget</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">materialAreaWidget</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s1">&#39;end&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">materialArea</span><span class="p">))</span>
+
+        <span class="c1"># Material Area</span>
+        <span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">topFrame</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Offset Line: &quot;</span><span class="p">,</span>
+              <span class="n">background</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">offsetLineWidget</span> <span class="o">=</span> <span class="n">Entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">topFrame</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">offsetLineWidget</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">offsetLineWidget</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s1">&#39;end&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">offsetLinePercent</span><span class="p">))</span>
+
+        <span class="c1"># Derivative smoothness</span>
+        <span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">topFrame</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;dydx smooth: &quot;</span><span class="p">,</span>
+              <span class="n">background</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dydxsmoothwidget</span> <span class="o">=</span> <span class="n">Entry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">topFrame</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dydxsmoothwidget</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dydxsmoothwidget</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s1">&#39;end&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">derivativeSmoothness</span><span class="p">))</span>
+
+        <span class="c1"># Graphs selector</span>
+        <span class="n">Label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">topFrame</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot; Graphs:&quot;</span><span class="p">,</span>
+              <span class="n">background</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">derivative_state</span> <span class="o">=</span> <span class="n">BooleanVar</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">derivative_state</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">Checkbutton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">topFrame</span><span class="p">,</span> <span class="n">variable</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">derivative_state</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;Derivative&#39;</span><span class="p">,</span>
+                    <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">,</span> <span class="n">bg</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">bd</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                    <span class="n">highlightthickness</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+        <span class="c1"># Failure Line</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">guideline_state</span> <span class="o">=</span> <span class="n">BooleanVar</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">guideline_state</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">Checkbutton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">topFrame</span><span class="p">,</span> <span class="n">variable</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">guideline_state</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;Guide Lines&#39;</span><span class="p">,</span>
+                    <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">,</span> <span class="n">bg</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">bd</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                    <span class="n">highlightthickness</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+        <span class="c1"># Update button</span>
+        <span class="n">Button</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">topFrame</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;Refresh&#39;</span><span class="p">,</span>
+               <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">)</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">topFrame</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+        <span class="c1"># Tk Canvas</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span> <span class="o">=</span> <span class="n">FigureCanvasTkAgg</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="p">,</span> <span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">get_tk_widget</span><span class="p">()</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">_tkcanvas</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># Quit Button</span>
+        <span class="n">Button</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;Save&#39;</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span>
+               <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">savelog</span><span class="p">)</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+        <span class="c1"># New file button</span>
+        <span class="n">Button</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;NewFile&#39;</span><span class="p">,</span>
+               <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">readNewFile</span><span class="p">)</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+        <span class="n">NavigationToolbar2Tk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+        <span class="c1"># Handle quit protocol</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">protocol</span><span class="p">(</span><span class="s2">&quot;WM_DELETE_WINDOW&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quit</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Return&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_returnKey</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Control-w&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quitSignal</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Control-q&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quitSignal</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElasticModulus.updateVariables"><a class="viewcode-back" href="../deflection.html#plotting.ElasticModulus.updateVariables">[docs]</a>    <span class="k">def</span> <span class="nf">updateVariables</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Update the variables beased on the retrived values form GUI</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">materialArea</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">materialAreaWidget</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="p">))</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">materialAreaWidget</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">materialArea</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">offsetLinePercent</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">offsetLineWidget</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="p">))</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">offsetLineWidget</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">offsetLineWidget</span><span class="o">.</span><span class="n">get</span><span class="p">())</span> <span class="o">&lt;</span> <span class="mi">100</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">offsetLinePercent</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">derivativeSmoothness</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dydxsmoothwidget</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="p">))</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dydxsmoothwidget</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">derivativeSmoothness</span></div>
+
+<div class="viewcode-block" id="ElasticModulus.update"><a class="viewcode-back" href="../deflection.html#plotting.ElasticModulus.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Update the plot</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">updateVariables</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">calculate</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sub</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">flush_events</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ElasticModulus.calculate"><a class="viewcode-back" href="../deflection.html#plotting.ElasticModulus.calculate">[docs]</a>    <span class="k">def</span> <span class="nf">calculate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Run all the necessary calculations</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># Convert Load and Deflection to Stress and Strain</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">deflections</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">initDeflection</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">initDeflection</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ys</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loads</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">materialArea</span>
+
+        <span class="c1"># Solve for the derivative of the Stress strain Curve</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dydx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">derivative</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dydxSmooth</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">smooth</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dydx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">derivativeSmoothness</span><span class="p">)</span>
+
+        <span class="c1"># Determine the elastic region based on the relative derivative</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eRegion</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getElasticRegion</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ElasticModulus.savelog"><a class="viewcode-back" href="../deflection.html#plotting.ElasticModulus.savelog">[docs]</a>    <span class="k">def</span> <span class="nf">savelog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Output certain info to a log file</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">timestamp</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;output.log&#39;</span>
+        <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;a&#39;</span> <span class="k">if</span> <span class="n">exists</span><span class="p">(</span><span class="n">abspath</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span> <span class="k">else</span> <span class="s1">&#39;w&#39;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;a&#39;</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;# &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">timestamp</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;ElasticModulus =&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">MaxSlope</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;YieldOffsetPoints =&#39;</span> <span class="o">+</span> <span class="s1">&#39;{&#39;</span> <span class="o">+</span>
+                    <span class="n">f</span><span class="s1">&#39;&quot;strain&quot;:{str(self.offsetLinePts[0])} &quot;stress&quot;:{str(self.offsetLinePts[1])}&#39;</span> <span class="o">+</span> <span class="s1">&#39;}&#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;MaximumStress =&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eRegion</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="n">messagebox</span><span class="o">.</span><span class="n">showinfo</span><span class="p">(</span>
+            <span class="s1">&#39;File Saved!&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;Output saved at ::</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">abspath</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">timestamp</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="ElasticModulus.plot"><a class="viewcode-back" href="../deflection.html#plotting.ElasticModulus.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Run all the matplotlib operations to inject into Tkinter</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># Title for the figure</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sub</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="s1">&#39;MTS EM Compression (Deflectometer)&#39;</span><span class="p">)</span>
+        <span class="c1"># Max slope Equation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">MaxSlope</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MaxYint</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">offsetLinePts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">drawMaximumLine</span><span class="p">()</span>
+
+        <span class="c1"># plotDeflecLoad(deflection, load)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plotStrainStress</span><span class="p">()</span>
+        <span class="c1"># Plot Relative derivative</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">derivative_state</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plotRelativeDerivative</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">guideline_state</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plotVertNHorLines</span><span class="p">()</span>
+
+        <span class="c1"># self.plotAnchoredText([&#39;Max Slope Equation&#39;, self.MaxSlopeEq])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plotAnchoredText</span><span class="p">([</span>
+            <span class="p">[</span><span class="s1">&#39;Elastic modulus&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MaxSlope</span><span class="p">],</span>
+            <span class="p">[</span><span class="s1">&#39;Yield Offset points&#39;</span><span class="p">,</span> <span class="s1">&#39;strain:&#39;</span> <span class="o">+</span>
+                <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">offsetLinePts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">5</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;  stress:&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">offsetLinePts</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">5</span><span class="p">)),</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">],</span>
+            <span class="p">[</span><span class="s1">&#39;Maximum stress&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">eRegion</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]]])</span>
+
+        <span class="c1"># Creates the legend for the plot</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sub</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span></div>
+
+        <span class="c1"># Save the plot</span>
+        <span class="c1"># self.fig.savefig(&#39;figure.svg&#39;, format=&#39;svg&#39;, dpi=1200)</span>
+
+    <span class="c1"># def find_nearest(array, value):</span>
+    <span class="c1">#     array = np.asarray(array)</span>
+    <span class="c1">#     idx = (np.abs(array - value)).argmin()</span>
+    <span class="c1">#     return array[idx]</span>
+
+<div class="viewcode-block" id="ElasticModulus.getFilename"><a class="viewcode-back" href="../deflection.html#plotting.ElasticModulus.getFilename">[docs]</a>    <span class="k">def</span> <span class="nf">getFilename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">firstFile</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Created a Tkinter gui to retrive user provided filename</span>
+
+<span class="sd">        :param firstFile: The first request for file</span>
+<span class="sd">        :type firstFile: bool</span>
+<span class="sd">        :return: The name of the file</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># Withdraw the main tkinter window</span>
+        <span class="c1"># Tk().withdraw()</span>
+        <span class="c1"># Userinput for the filename</span>
+        <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">askopenfilename</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Choose CSV Data File&#39;</span><span class="p">)</span>
+        <span class="c1"># Handle if no filename is provided</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">or</span> <span class="n">filename</span> <span class="ow">is</span> <span class="s1">&#39;&#39;</span> <span class="ow">or</span> <span class="n">isdir</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+            <span class="c1"># Popup feedback</span>
+            <span class="n">messagebox</span><span class="o">.</span><span class="n">showerror</span><span class="p">(</span><span class="s1">&#39;No Files&#39;</span><span class="p">,</span> <span class="s1">&#39;No files were provided&#39;</span><span class="p">)</span>
+            <span class="c1"># Exit with a message</span>
+            <span class="k">if</span> <span class="n">firstFile</span><span class="p">:</span>
+                <span class="n">exit</span><span class="p">(</span><span class="s1">&#39;ERROR: No files were provided&#39;</span><span class="p">)</span>
+        <span class="c1"># Handle if wrong filetype is provided</span>
+        <span class="k">elif</span> <span class="s1">&#39;csv&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">filename</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+            <span class="c1"># Popup feedback</span>
+            <span class="n">messagebox</span><span class="o">.</span><span class="n">showerror</span><span class="p">(</span>
+                <span class="s1">&#39;Unsupported type&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Incorrect File type!</span><span class="se">\n</span><span class="s1">ONLY &quot;csv&quot; supported&#39;</span><span class="p">)</span>
+            <span class="c1"># Exit with a message</span>
+            <span class="k">if</span> <span class="n">firstFile</span><span class="p">:</span>
+                <span class="n">exit</span><span class="p">(</span><span class="s1">&#39;ERROR: Incorrect File type&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">firstFile</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">filename</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span></div>
+
+<div class="viewcode-block" id="ElasticModulus.readFile"><a class="viewcode-back" href="../deflection.html#plotting.ElasticModulus.readFile">[docs]</a>    <span class="k">def</span> <span class="nf">readFile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">firstFile</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Read the file and setup initial deflection, loads and deflections</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getFilename</span><span class="p">(</span><span class="n">firstFile</span><span class="p">)</span>
+        <span class="c1"># Initialize variables</span>
+        <span class="n">defNload</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="c1"># open the user defined file</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csvfile</span><span class="p">:</span>
+            <span class="n">plots</span> <span class="o">=</span> <span class="n">csv_reader</span><span class="p">(</span><span class="n">csvfile</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+            <span class="c1"># for skips in range(skiplines):</span>
+            <span class="c1">#     next(plots)</span>
+            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">plots</span><span class="p">:</span>
+                <span class="c1"># Skip the details and defination portion</span>
+                <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+                    <span class="c1"># Append the loads the delections</span>
+                    <span class="n">defNload</span><span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">3</span><span class="p">])]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="c1"># return intial delfection, loads and deflections as tuple</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initDeflection</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">loads</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">deflections</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromiter</span><span class="p">(</span><span class="n">defNload</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">fromiter</span><span class="p">(</span>
+            <span class="n">defNload</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">fromiter</span><span class="p">(</span><span class="n">defNload</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElasticModulus.readNewFile"><a class="viewcode-back" href="../deflection.html#plotting.ElasticModulus.readNewFile">[docs]</a>    <span class="k">def</span> <span class="nf">readNewFile</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Read a new file</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">readFile</span><span class="p">(</span><span class="n">firstFile</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ElasticModulus.derivative"><a class="viewcode-back" href="../deflection.html#plotting.ElasticModulus.derivative">[docs]</a>    <span class="k">def</span> <span class="nf">derivative</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Find the derivative</span>
+
+<span class="sd">        :return: array of the derivative</span>
+<span class="sd">        :rtype: np.ndarray</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># Return the derivative</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ys</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="p">),</span>
+                         <span class="n">out</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="p">)),</span> <span class="n">where</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElasticModulus.plotRelativeDerivative"><a class="viewcode-back" href="../deflection.html#plotting.ElasticModulus.plotRelativeDerivative">[docs]</a>    <span class="k">def</span> <span class="nf">plotRelativeDerivative</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Plot the Derivative relative to y-axis</span>
+
+<span class="sd">        :param ls: linestyle, defaults to &#39;-&#39;</span>
+<span class="sd">        :type ls: str, optional</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># Solve for relative derivative corrolated to the y-axis</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dydxRelative</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dydxSmooth</span> <span class="o">/</span> \
+            <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dydxSmooth</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ys</span><span class="p">))</span>
+        <span class="c1"># Plot the relative derivative against strain</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sub</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="bp">self</span><span class="o">.</span><span class="n">dydxRelative</span><span class="p">,</span> <span class="n">ls</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElasticModulus.plotStrainStress"><a class="viewcode-back" href="../deflection.html#plotting.ElasticModulus.plotStrainStress">[docs]</a>    <span class="k">def</span> <span class="nf">plotStrainStress</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Plot the Strain and Stress</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># Set X-axis label</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sub</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Strain&#39;</span><span class="p">)</span>
+        <span class="c1"># Set Y-axis label</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sub</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Stress&#39;</span><span class="p">)</span>
+        <span class="c1"># Plot the strain and stress on the figure</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sub</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ys</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Stress and Strain&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElasticModulus.plotDeflecLoad"><a class="viewcode-back" href="../deflection.html#plotting.ElasticModulus.plotDeflecLoad">[docs]</a>    <span class="k">def</span> <span class="nf">plotDeflecLoad</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Plot the Defelction and Load</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="c1"># Set X-axis label</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sub</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Deflectometer [mm]&#39;</span><span class="p">)</span>
+        <span class="c1"># Set Y-axis label</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sub</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Load [N]&#39;</span><span class="p">)</span>
+        <span class="c1"># Plot the defelction and load on the figure</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sub</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deflections</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">loads</span><span class="p">,</span>
+                      <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Load and Deflection&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElasticModulus.abline"><a class="viewcode-back" href="../deflection.html#plotting.ElasticModulus.abline">[docs]</a>    <span class="k">def</span> <span class="nf">abline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slope</span><span class="p">,</span> <span class="n">intercept</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">xsnum</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">xshift</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_return</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Create a line provided the slope and intercept</span>
+
+<span class="sd">        :param slope: Slope of the line</span>
+<span class="sd">        :type slope: float or int</span>
+<span class="sd">        :param intercept: Y-intercept of the line</span>
+<span class="sd">        :type intercept: float or int</span>
+<span class="sd">        :param color: color of the line, defaults to &#39;&#39;</span>
+<span class="sd">        :type color: str, optional</span>
+<span class="sd">        :param ls: Style of the line, defaults to &#39;-&#39;</span>
+<span class="sd">        :type ls: str, optional</span>
+<span class="sd">        :param label: Label for the line, defaults to &#39;&#39;</span>
+<span class="sd">        :type label: str, optional</span>
+<span class="sd">        :param length: Length of the line, defaults to 50</span>
+<span class="sd">        :type length: int, optional</span>
+<span class="sd">        :param xsnum: number of x-values, defaults to 50</span>
+<span class="sd">        :type xsnum: int, optional</span>
+<span class="sd">        :param xshift: Shif the line along x-axis, defaults to None</span>
+<span class="sd">        :type xshift: int, optional</span>
+<span class="sd">        :param _return: return the xs, ys, xmin and xmax, defaults to False</span>
+<span class="sd">        :type _return: bool, optional</span>
+<span class="sd">        :return: tuple of lists if _return == True</span>
+<span class="sd">        :rtype: tuple</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># If a shfit in X-axis is defined</span>
+        <span class="k">if</span> <span class="n">xshift</span><span class="p">:</span>
+            <span class="n">intercept</span> <span class="o">=</span> <span class="n">intercept</span><span class="o">-</span><span class="p">(</span><span class="n">slope</span><span class="o">*</span><span class="n">xshift</span><span class="p">)</span>
+        <span class="c1"># Create equally spaces array and ones visible beyound X-intercept</span>
+        <span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">((</span><span class="o">-</span><span class="n">intercept</span><span class="o">/</span><span class="n">slope</span><span class="p">),</span>
+                                  <span class="p">(</span><span class="o">-</span><span class="n">intercept</span><span class="o">/</span><span class="n">slope</span><span class="p">)</span><span class="o">+</span><span class="n">length</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="n">xsnum</span><span class="p">))</span>
+        <span class="c1"># Solve for y-values with Y=MX+B formula</span>
+        <span class="n">ys</span> <span class="o">=</span> <span class="p">(</span><span class="n">slope</span> <span class="o">*</span> <span class="n">xs</span><span class="p">)</span> <span class="o">+</span> <span class="n">intercept</span>
+        <span class="c1"># Plot the line on the figure</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">sub</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{color}{ls}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">_return</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="n">intercept</span><span class="o">/</span><span class="n">slope</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="n">intercept</span><span class="o">/</span><span class="n">slope</span><span class="p">)</span><span class="o">+</span><span class="n">length</span></div>
+
+<div class="viewcode-block" id="ElasticModulus.smooth"><a class="viewcode-back" href="../deflection.html#plotting.ElasticModulus.smooth">[docs]</a>    <span class="k">def</span> <span class="nf">smooth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">box_pts</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Smooth numpy arrays using a box filter</span>
+
+<span class="sd">        :param data: array to smooth out</span>
+<span class="sd">        :type data: np.ndarray</span>
+<span class="sd">        :param box_pts: strength of smoothness, box size</span>
+<span class="sd">        :type box_pts: int</span>
+<span class="sd">        :return: smooth numpy array</span>
+<span class="sd">        :rtype: np.ndarray</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># Smoothout the curve with the size of max array</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">box_pts</span><span class="p">)</span><span class="o">/</span><span class="n">box_pts</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElasticModulus.getElasticRegion"><a class="viewcode-back" href="../deflection.html#plotting.ElasticModulus.getElasticRegion">[docs]</a>    <span class="k">def</span> <span class="nf">getElasticRegion</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Get the elastic region based on the derivative</span>
+
+<span class="sd">        :return: Points within Elastic Region</span>
+<span class="sd">        :rtype: np.ndarray</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">region</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># Iterate over all derivative valuescr</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dydxSmooth</span><span class="p">)):</span>
+            <span class="c1"># Append to elasticRegion while derivative is greater than 0</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dydxSmooth</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">region</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">ys</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># break when derivative is less than 0</span>
+                <span class="k">break</span>
+        <span class="c1"># return variable</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">region</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">region</span><span class="p">)</span>
+        <span class="c1"># Handle if no elastic region is detected</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">detectDrop</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ElasticModulus.intersectionIDX"><a class="viewcode-back" href="../deflection.html#plotting.ElasticModulus.intersectionIDX">[docs]</a>    <span class="k">def</span> <span class="nf">intersectionIDX</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">g</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Find the intersection index for function f an g</span>
+
+<span class="sd">        :param f: array of points for f(f) in terms of y-vals</span>
+<span class="sd">        :type f: array</span>
+<span class="sd">        :param g: array of points for f(g) in terms of y-vals</span>
+<span class="sd">        :type g: array</span>
+<span class="sd">        :return: list of intersections</span>
+<span class="sd">        :rtype: int or list</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">f</span> <span class="o">-</span> <span class="n">g</span><span class="p">)))</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ElasticModulus.drawMaximumLine"><a class="viewcode-back" href="../deflection.html#plotting.ElasticModulus.drawMaximumLine">[docs]</a>    <span class="k">def</span> <span class="nf">drawMaximumLine</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Draws the maximum slope line</span>
+
+<span class="sd">        :return: tuple of the slope and intercept</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dydxSmooth</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dydxSmooth</span><span class="p">[</span><span class="mi">10</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eRegion</span><span class="p">)]))[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">slope</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dydxSmooth</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="n">yInt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ys</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">*</span><span class="n">slope</span><span class="p">)</span>
+        <span class="n">lenLine</span> <span class="o">=</span> <span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ys</span><span class="p">)</span><span class="o">-</span><span class="n">yInt</span><span class="p">)</span><span class="o">/</span><span class="n">slope</span>
+
+        <span class="c1"># Maximum Slope</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">abline</span><span class="p">(</span><span class="n">slope</span><span class="p">,</span> <span class="n">yInt</span><span class="p">,</span>
+                    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Maximum Slope&#39;</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="n">lenLine</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Off set yield Line</span>
+        <span class="n">offsetlinepoints</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">abline</span><span class="p">(</span><span class="n">slope</span><span class="p">,</span> <span class="n">yInt</span><span class="p">,</span>
+                                       <span class="n">xshift</span><span class="o">=</span><span class="p">((</span><span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="p">)</span><span class="o">-</span><span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="p">))</span> <span class="o">*</span>
+                                               <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">offsetLinePercent</span><span class="o">/</span><span class="mi">100</span><span class="p">)),</span>
+                                       <span class="n">label</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;{float(self.offsetLinePercent)}% Offset line&quot;</span><span class="p">,</span>
+                                       <span class="n">length</span><span class="o">=</span><span class="n">lenLine</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span>
+                                       <span class="n">xsnum</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="p">),</span> <span class="n">_return</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">lineIDX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">xs</span> <span class="o">&gt;=</span> <span class="n">offsetlinepoints</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">xs</span> <span class="o">&lt;=</span> <span class="n">offsetlinepoints</span><span class="p">[</span><span class="mi">3</span><span class="p">]))[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">lineys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">ys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">lineIDX</span><span class="p">])</span>
+
+        <span class="n">offsetlinepoints</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">abline</span><span class="p">(</span><span class="n">slope</span><span class="p">,</span> <span class="n">yInt</span><span class="p">,</span>
+                                       <span class="n">xshift</span><span class="o">=</span><span class="p">((</span><span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="p">)</span><span class="o">-</span><span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="p">))</span> <span class="o">*</span>
+                                               <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">offsetLinePercent</span><span class="o">/</span><span class="mi">100</span><span class="p">)),</span>
+                                       <span class="n">length</span><span class="o">=</span><span class="n">lenLine</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span>
+                                       <span class="n">xsnum</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">lineIDX</span><span class="p">),</span> <span class="n">_return</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># find intersection of yield line and stress and strain curve</span>
+        <span class="n">intIDX</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">intersectionIDX</span><span class="p">(</span><span class="n">lineys</span><span class="p">,</span> <span class="n">offsetlinepoints</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">slope</span><span class="p">,</span> <span class="n">yInt</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">offsetlinepoints</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">intIDX</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">offsetlinepoints</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">intIDX</span><span class="p">]))</span></div>
+
+<div class="viewcode-block" id="ElasticModulus.plotVertNHorLines"><a class="viewcode-back" href="../deflection.html#plotting.ElasticModulus.plotVertNHorLines">[docs]</a>    <span class="k">def</span> <span class="nf">plotVertNHorLines</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Plot all vertical and Horizontal lines</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># Base horizontal line</span>
+        <span class="c1"># Horizontal line at y=0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sub</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+        <span class="c1"># Bse vertical line</span>
+        <span class="c1"># Vertical line for min strain</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sub</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="p">),</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-.&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">alphaValue</span><span class="p">)</span>
+        <span class="c1"># Yield offset Line</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sub</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span>
+            <span class="n">x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">offsetLinePts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-.&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">alphaValue</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sub</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span>
+            <span class="n">y</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">offsetLinePts</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-.&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">alphaValue</span><span class="p">)</span>
+        <span class="c1"># Vertical line for max elasticRegion</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sub</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">eRegion</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-.&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">alphaValue</span><span class="p">)</span>
+        <span class="c1"># Horizontal line for max elasticRegion</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sub</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">eRegion</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+        <span class="c1"># point of yeild</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sub</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eRegion</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">eRegion</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;r.&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Faliure Lines</span>
+        <span class="c1"># Vertical line for max strain</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sub</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="p">),</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-.&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">alphaValue</span><span class="p">)</span>
+        <span class="c1"># Horizontal line for max stress</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sub</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ys</span><span class="p">),</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-.&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">alphaValue</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElasticModulus.plotAnchoredText"><a class="viewcode-back" href="../deflection.html#plotting.ElasticModulus.plotAnchoredText">[docs]</a>    <span class="k">def</span> <span class="nf">plotAnchoredText</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lists</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Plots anchored text on the graph</span>
+
+<span class="sd">        :param lists: List containing the Name and Equation [name, eq]</span>
+<span class="sd">        :type lists: list</span>
+<span class="sd">        :param location: Placement of the Anchored text, defaults to &#39;lower right&#39;</span>
+<span class="sd">        :type location: str, optional</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># Equation for the elastic region</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lists</span><span class="p">)):</span>
+            <span class="n">newline</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lists</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="n">text</span> <span class="o">+=</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{lists[i][0]}</span><span class="s1">: </span><span class="si">{newline}{lists[i][1]}</span><span class="s1">&#39;</span>
+        <span class="n">anchoredTxt</span> <span class="o">=</span> <span class="n">AnchoredText</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">location</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sub</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">anchoredTxt</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElasticModulus.detectDrop"><a class="viewcode-back" href="../deflection.html#plotting.ElasticModulus.detectDrop">[docs]</a>    <span class="k">def</span> <span class="nf">detectDrop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tries</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Backup function to detect a drop in slope</span>
+
+<span class="sd">        :param tries: Amount of fails allowed, defaults to 5</span>
+<span class="sd">        :type tries: int, optional</span>
+<span class="sd">        :return: Elastic region of the curve</span>
+<span class="sd">        :rtype: np.ndarray</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">ctries</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">region</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ys</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">ys</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="n">ctries</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="n">region</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">ys</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">ctries</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">ctries</span> <span class="o">==</span> <span class="n">tries</span><span class="p">:</span>
+                <span class="k">break</span>
+        <span class="c1"># Handle if Detect drop fails itself</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">region</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">region</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">ys</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ys</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">])])</span></div>
+
+<div class="viewcode-block" id="ElasticModulus.mainloop"><a class="viewcode-back" href="../deflection.html#plotting.ElasticModulus.mainloop">[docs]</a>    <span class="k">def</span> <span class="nf">mainloop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Enter Tkinter in the mainloop</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ElasticModulus._quitSignal"><a class="viewcode-back" href="../deflection.html#plotting.ElasticModulus._quitSignal">[docs]</a>    <span class="k">def</span> <span class="nf">_quitSignal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="s2">&quot;Handle the quit signal event&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_quit</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ElasticModulus._returnKey"><a class="viewcode-back" href="../deflection.html#plotting.ElasticModulus._returnKey">[docs]</a>    <span class="k">def</span> <span class="nf">_returnKey</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="s2">&quot;Handle the retrun key update event&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ElasticModulus._quit"><a class="viewcode-back" href="../deflection.html#plotting.ElasticModulus._quit">[docs]</a>    <span class="k">def</span> <span class="nf">_quit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Quit the tlc interpreter and all widgets</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">messagebox</span><span class="o">.</span><span class="n">askquestion</span><span class="p">(</span><span class="s1">&#39;Exit Application&#39;</span><span class="p">,</span> <span class="s1">&#39;Are you sure you want to exit the application?&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="s1">&#39;warning&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;yes&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">withdraw</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span></div></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">Tk</span><span class="p">()</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;MTS EM&quot;</span><span class="p">)</span>
+    <span class="n">mod</span> <span class="o">=</span> <span class="n">ElasticModulus</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, abir
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
