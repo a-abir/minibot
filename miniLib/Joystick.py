@@ -19,12 +19,12 @@ class Joystick:
             joystick = pygame.joystick.Joystick(i)
             joystick.init()
 
-            print(f"Joystick {i}")
+            print("Joystick {}".format(i))
             # Get the name from the OS for the controller/joystick.
-            print(f"Joystick name: {joystick.get_name()}")
+            print("Joystick name: {}".format(joystick.get_name()))
             # Usually axis run in pairs, up/down for one, and left/right
-            print(f"Number of axes: {joystick.get_numaxes()}")
-            print(f"Number of buttons: {joystick.get_numbuttons()}")
+            print("Number of axes: {}".format(joystick.get_numaxes()))
+            print("Number of buttons: {}".format(joystick.get_numbuttons()))
 
     def newJoystick(self, id, _return=False):
         '''
@@ -51,6 +51,7 @@ class Joystick:
         :return: value of the axis
         :rtype: float
         '''
+        pygame.event.pump()
         return self.jstick.get_axis(axisID)
 
     def getButton(self, buttonID):

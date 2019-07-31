@@ -24,8 +24,8 @@ class ArcadeDrive:
         '''
 
         # calculate left and right power
-        leftPower = forward + steer
-        rightPower = forward - steer
+        leftPower = forward - steer
+        rightPower = forward + steer
         return leftPower, rightPower
 
     def drive(self, forwardPower, steerPower):
@@ -66,5 +66,5 @@ class TankDrive:
         :param rightPower: Steer power from joystick axis
         :type rightPower: float
         '''
-        self.left.throttle = self.leftPower
-        self.right.throttle = self.rightPower
+        self.left.throttle = self.leftPower if self.leftPower<1 and self.leftPower>-1 else 0
+        self.right.throttle = self.rightPower if self.rightPower<1 and self.rightPower>-1 else 0

@@ -9,10 +9,7 @@ jstick.newJoystick(0)
 
 drive = ArcadeDrive(leftServo, rightServo)
 while True:
-    try:
-        forwardAxis = round(jstick.getAxis(0), 2)
-        steerAxis = round(jstick.getAxis(3), 2)
-        drive.drive(forwardAxis, steerAxis)
-    except:
-        drive.drive(0, 0)
-
+    forwardAxis = jstick.getAxis(1)
+    steerAxis = jstick.getAxis(3)
+    
+    drive.drive(forwardAxis, steerAxis)

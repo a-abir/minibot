@@ -5,7 +5,8 @@ class Servo:
         '''
         Setup servo for using adafruit servokit
         '''
-        self.kit = ServoKit(channels=16)
+        self.
+kit = ServoKit(channels=16)
 
     def newServo(self, pwmID):
         '''
@@ -16,4 +17,4 @@ class Servo:
         :return: instance of continuous servo
         :rtype: continuous_servo
         '''
-        return self.kit.continuous_servo[pwmID]
+        return kit.continuous_servo[pwmID]
