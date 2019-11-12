@@ -175,22 +175,26 @@
 13
 14
 15
-16</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="hll"><span class="sd">&#39;&#39;&#39;</span>
-</span><span class="sd">from miniLib import Joystick, ArcadeDrive, Motor</span>
+16
+17
+18</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="hll"><span class="kn">from</span> <span class="nn">miniLib</span> <span class="kn">import</span> <span class="n">Joystick</span><span class="p">,</span> <span class="n">ArcadeDrive</span><span class="p">,</span> <span class="n">Motor</span>
+</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">left</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">right</span> <span class="o">=</span> <span class="n">Motor</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="sd">left = Motor(0)</span>
-<span class="sd">right = Motor(1)</span>
+    <span class="n">jstick</span> <span class="o">=</span> <span class="n">Joystick</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="sd">jstick = Joystick(0)</span>
+    <span class="n">robot</span> <span class="o">=</span> <span class="n">ArcadeDrive</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">)</span>
 
-<span class="sd">robot = ArcadeDrive(left, right)</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="n">forwardAxis</span> <span class="o">=</span> <span class="n">jstick</span><span class="o">.</span><span class="n">getAxis</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">steerAxis</span> <span class="o">=</span> <span class="n">jstick</span><span class="o">.</span><span class="n">getAxis</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 
-<span class="sd">while True:</span>
-<span class="sd">    forwardAxis = jstick.getAxis(1)</span>
-<span class="sd">    steerAxis = jstick.getAxis(3)</span>
+        <span class="n">robot</span><span class="o">.</span><span class="n">drive</span><span class="p">(</span><span class="n">forwardAxis</span><span class="p">,</span> <span class="n">steerAxis</span><span class="p">)</span>
 
-<span class="sd">    robot.drive(forwardAxis, steerAxis)</span>
-<span class="sd">&#39;&#39;&#39;</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </td></tr></table></div>
 </div>
