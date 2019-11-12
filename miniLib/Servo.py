@@ -1,19 +1,16 @@
-from adafruit_servokit import ServoKit
+from setup import Servos, ContiniousServos
 
 class Servo:
-    def __init__(self):
-        '''
-        Setup servo for using adafruit servokit
-        '''
-        self.kit = ServoKit(channels=16)
+    def __init__(self, ID):
+        self.servo = Servos[ID]
 
-    def newServo(self, pwmID):
-        '''
-        Setup a servo given pwm ID
+    def angle(self, degree):
+        self.servo.angle = degree
 
-        :param pwmID: ID of the servo
-        :type pwmID: int
-        :return: instance of continuous servo
-        :rtype: continuous_servo
-        '''
-        return self.kit.continuous_servo[pwmID]
+
+class ContiniousServo:
+    def __init__(self, ID):
+        self.servo = ContiniousServos[ID]
+
+    def throttle(self, power):
+        self.servo.throttle = power

@@ -1,12 +1,13 @@
 import pygame
-pygame.init()
 
 class Joystick:
-    def __init__(self):
+    def __init__(self, ID, deadband=0):
         '''
         Setup Joystick control using pygame
         '''
+        pygame.init()
         pygame.joystick.init()
+        self.newJoystick(ID, deadband)
 
     def info(self):
         '''
@@ -26,7 +27,7 @@ class Joystick:
             print("Number of axes: {}".format(joystick.get_numaxes()))
             print("Number of buttons: {}".format(joystick.get_numbuttons()))
 
-    def newJoystick(self, id, _return=False):
+    def newJoystick(self, id, deadband, _return=False):
         '''
         Setup a new joystick
 
@@ -39,6 +40,7 @@ class Joystick:
         '''
         self.jstick = pygame.joystick.Joystick(id)
         self.jstick.init()
+        self.deadband = abs(deadband)
         if _return:
             return self.jstick
 
@@ -52,7 +54,8 @@ class Joystick:
         :rtype: float
         '''
         pygame.event.pump()
-        return self.jstick.get_axis(axisID)
+        _return = self.jstick.get_axis(axisID) if self.jstick.get_axis(axisID) > self.deadband or self.jstick.get_axis(axisID) < -self.deadband else 0
+        return _return
 
     def getButton(self, buttonID):
         '''

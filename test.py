@@ -1,18 +1,16 @@
-from miniLib import ArcadeDrive, Servo, Joystick
-servo = Servo()
-leftServo = servo.newServo(0)
-rightServo = servo.newServo(1)
+'''
+from miniLib import Joystick, ArcadeDrive, Motor
 
-jstick = Joystick()
-jstick.info()
-jstick.newJoystick(0)
+left = Motor(0)
+right = Motor(1)
 
-drive = ArcadeDrive(leftServo, rightServo)
+jstick = Joystick(0)
+
+robot = ArcadeDrive(left, right)
+
 while True:
-    try:
-        forwardAxis = round(jstick.getAxis(0), 2)
-        steerAxis = round(jstick.getAxis(3), 2)
-        drive.drive(forwardAxis, steerAxis)
-    except:
-        drive.drive(0, 0)
+    forwardAxis = jstick.getAxis(1)
+    steerAxis = jstick.getAxis(3)
 
+    robot.drive(forwardAxis, steerAxis)
+'''

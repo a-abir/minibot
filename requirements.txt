@@ -1,2 +1,2 @@
 pygame
-adafruit-circuitpython-servokit
+adafruit-circuitpython-crickit

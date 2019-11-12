@@ -1,15 +1,15 @@
 class ArcadeDrive:
-    def __init__(self, LeftServo, rightServo):
+    def __init__(self, left, right):
         '''
         Setup Arcade drive
 
-        :param LeftServo: Servo for the left side drive
-        :type LeftServo: continuous_servo
-        :param rightServo: Servo for the right side drive
+        :param left: left side drive
+        :type right: continuous_servo
+        :param rightServo: right side drive
         :type rightServo: continuous_servo
         '''
-        self.right = rightServo
-        self.left = LeftServo
+        self.left = left
+        self.right = right
 
     def calculate(self, forward, steer):
         '''
@@ -39,12 +39,12 @@ class ArcadeDrive:
         :type steerPower: float
         '''
         self.leftPower, self.rightPower = self.calculate(forwardPower, steerPower)
-        self.left.throttle = self.leftPower
-        self.right.throttle = self.rightPower
+        self.left.throttle(self.leftPower)
+        self.right.throttle(self.rightPower)
 
 
 class TankDrive:
-    def __init__(self, LeftServo, rightServo):
+    def __init__(self, left, right):
         '''
         Setup Tank drive
 
@@ -53,8 +53,8 @@ class TankDrive:
         :param rightServo: Servo for the right side drive
         :type rightServo: continuous_servo
         '''
-        self.right = rightServo
-        self.left = LeftServo
+        self.left = left
+        self.right = right
 
     def drive(self, leftPower, rightPower):
         '''
@@ -66,5 +66,5 @@ class TankDrive:
         :param rightPower: Steer power from joystick axis
         :type rightPower: float
         '''
-        self.left.throttle = self.leftPower if self.leftPower<1 and self.leftPower>-1 else 0
-        self.right.throttle = self.rightPower if self.rightPower<1 and self.rightPower>-1 else 0
+        self.left.throttle(self.leftPower)
+        self.right.throttle(self.rightPower)

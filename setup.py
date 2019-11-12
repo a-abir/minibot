@@ -3,11 +3,14 @@
 from setuptools import setup
 
 def readme():
-    with open('README.rst') as f:
-        return f.read()
+    try:
+      with open('README.rst') as f:
+          return f.read()
+    except:
+      return "Minibot"
 
 setup(name='miniLib',
-      version='0.04',
+      version='0.07',
       long_description=readme(),
       description='Package for adafruit powered servo bots',
       url='http://github.com/atikul99/minibot',
@@ -15,7 +18,7 @@ setup(name='miniLib',
       author_email='atikul10152002@gmail.com',
       license='MIT',
       install_requires=[
-          'pygame','adafruit-circuitpython-servokit'
+          'pygame', 'adafruit-circuitpython-crickit'
       ],
       packages=['miniLib'],
       zip_safe=False,
