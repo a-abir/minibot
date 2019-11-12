@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>miniLib/__init__.py &mdash; Minibot 0.01a documentation</title>
+  <title>miniLib Library &mdash; Minibot 0.01a documentation</title>
   
 
   
@@ -91,13 +91,13 @@
 </ul>
 <p class="caption"><span class="caption-text">Package minilib</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">miniLib/__init__.py</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#minilib-arcadedrive">miniLib.ArcadeDrive</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#minilib-tankdrive">miniLib.TankDrive</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#minilib-servo">miniLib.Servo</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#minilib-continiousservo">miniLib.ContiniousServo</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#minilib-motor">miniLib.Motor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#minilib-joystick">miniLib.Joystick</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">miniLib Library</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#minilib-arcadedrive"><code class="docutils literal notranslate"><span class="pre">miniLib.ArcadeDrive</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#minilib-tankdrive"><code class="docutils literal notranslate"><span class="pre">miniLib.TankDrive</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#minilib-joystick"><code class="docutils literal notranslate"><span class="pre">miniLib.Joystick</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#minilib-motor"><code class="docutils literal notranslate"><span class="pre">miniLib.Motor</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#minilib-servo"><code class="docutils literal notranslate"><span class="pre">miniLib.Servo</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#minilib-continiousservo"><code class="docutils literal notranslate"><span class="pre">miniLib.ContiniousServo</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -145,7 +145,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>miniLib/__init__.py</li>
+      <li>miniLib Library</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -164,26 +164,230 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="minilib-init-py">
-<h1>miniLib/__init__.py<a class="headerlink" href="#minilib-init-py" title="Permalink to this headline">¶</a></h1>
-<p>Package for Arcade drive, Servos and Joysticks</p>
+  <div class="section" id="minilib-library">
+<h1>miniLib Library<a class="headerlink" href="#minilib-library" title="Permalink to this headline">¶</a></h1>
+<p><em>Documentation for the Library</em></p>
 <div class="section" id="minilib-arcadedrive">
-<h2>miniLib.ArcadeDrive<a class="headerlink" href="#minilib-arcadedrive" title="Permalink to this headline">¶</a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">miniLib.ArcadeDrive</span></code><a class="headerlink" href="#minilib-arcadedrive" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="miniLib.ArcadeDrive">
+<em class="property">class </em><code class="sig-prename descclassname">miniLib.</code><code class="sig-name descname">ArcadeDrive</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">left</em>, <em class="sig-param">right</em><span class="sig-paren">)</span><a class="headerlink" href="#miniLib.ArcadeDrive" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="miniLib.ArcadeDrive.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">left</em>, <em class="sig-param">right</em><span class="sig-paren">)</span><a class="headerlink" href="#miniLib.ArcadeDrive.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup Arcade drive</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>left</strong> – left side drive</p></li>
+<li><p><strong>rightServo</strong> (<em>continuous_servo</em>) – right side drive</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="miniLib.ArcadeDrive.drive">
+<code class="sig-name descname">drive</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">forwardPower</em>, <em class="sig-param">steerPower</em><span class="sig-paren">)</span><a class="headerlink" href="#miniLib.ArcadeDrive.drive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drive given the forward and steer axis power
+Meant to be run inside a while loop</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>forwardPower</strong> (<em>float</em>) – Forward power from joystick axis</p></li>
+<li><p><strong>steerPower</strong> (<em>float</em>) – Steer power from joystick axis</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p>…</p>
 </div>
 <div class="section" id="minilib-tankdrive">
-<h2>miniLib.TankDrive<a class="headerlink" href="#minilib-tankdrive" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="minilib-servo">
-<h2>miniLib.Servo<a class="headerlink" href="#minilib-servo" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="minilib-continiousservo">
-<h2>miniLib.ContiniousServo<a class="headerlink" href="#minilib-continiousservo" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="minilib-motor">
-<h2>miniLib.Motor<a class="headerlink" href="#minilib-motor" title="Permalink to this headline">¶</a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">miniLib.TankDrive</span></code><a class="headerlink" href="#minilib-tankdrive" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="miniLib.TankDrive">
+<em class="property">class </em><code class="sig-prename descclassname">miniLib.</code><code class="sig-name descname">TankDrive</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">left</em>, <em class="sig-param">right</em><span class="sig-paren">)</span><a class="headerlink" href="#miniLib.TankDrive" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="miniLib.TankDrive.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">left</em>, <em class="sig-param">right</em><span class="sig-paren">)</span><a class="headerlink" href="#miniLib.TankDrive.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup Arcade drive</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>left</strong> – left side drive</p></li>
+<li><p><strong>rightServo</strong> (<em>continuous_servo</em>) – right side drive</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="miniLib.TankDrive.drive">
+<code class="sig-name descname">drive</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">leftPower</em>, <em class="sig-param">rightPower</em><span class="sig-paren">)</span><a class="headerlink" href="#miniLib.TankDrive.drive" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Drive given the left and right axis power</dt><dd><p>Meant to be run inside a while loop</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>leftPower</strong> (<em>float</em>) – Forward power from joystick axis</p></li>
+<li><p><strong>rightPower</strong> (<em>float</em>) – Steer power from joystick axis</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p>…</p>
 </div>
 <div class="section" id="minilib-joystick">
-<h2>miniLib.Joystick<a class="headerlink" href="#minilib-joystick" title="Permalink to this headline">¶</a></h2>
+<h2><code class="docutils literal notranslate"><span class="pre">miniLib.Joystick</span></code><a class="headerlink" href="#minilib-joystick" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="miniLib.Joystick">
+<em class="property">class </em><code class="sig-prename descclassname">miniLib.</code><code class="sig-name descname">Joystick</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">ID</em>, <em class="sig-param">deadband=0</em><span class="sig-paren">)</span><a class="headerlink" href="#miniLib.Joystick" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="miniLib.Joystick.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">ID</em>, <em class="sig-param">deadband=0</em><span class="sig-paren">)</span><a class="headerlink" href="#miniLib.Joystick.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup Joystick control using pygame
+:param id: ID of the joystick
+:type id: int</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="miniLib.Joystick.getAxis">
+<code class="sig-name descname">getAxis</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">axisID</em><span class="sig-paren">)</span><a class="headerlink" href="#miniLib.Joystick.getAxis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the value of the axis</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>axisID</strong> (<em>int</em>) – Id of the axis</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>value of the axis</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="miniLib.Joystick.getButton">
+<code class="sig-name descname">getButton</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">buttonID</em><span class="sig-paren">)</span><a class="headerlink" href="#miniLib.Joystick.getButton" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the state of the button</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>buttonID</strong> (<em>int</em>) – Id of the button</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>state of the button</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p>…</p>
+</div>
+<div class="section" id="minilib-motor">
+<h2><code class="docutils literal notranslate"><span class="pre">miniLib.Motor</span></code><a class="headerlink" href="#minilib-motor" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="miniLib.Motor">
+<em class="property">class </em><code class="sig-prename descclassname">miniLib.</code><code class="sig-name descname">Motor</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">ID</em><span class="sig-paren">)</span><a class="headerlink" href="#miniLib.Motor" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="miniLib.Motor.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">ID</em><span class="sig-paren">)</span><a class="headerlink" href="#miniLib.Motor.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inintialize the DC Motor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ID</strong> (<em>int</em>) – The ID of the Motor [0,1]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="miniLib.Motor.throttle">
+<code class="sig-name descname">throttle</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">power</em><span class="sig-paren">)</span><a class="headerlink" href="#miniLib.Motor.throttle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input power for the Motor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>power</strong> (<em>float</em>) – Value from -1 to 1</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p>…</p>
+</div>
+<div class="section" id="minilib-servo">
+<h2><code class="docutils literal notranslate"><span class="pre">miniLib.Servo</span></code><a class="headerlink" href="#minilib-servo" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="miniLib.Servo">
+<em class="property">class </em><code class="sig-prename descclassname">miniLib.</code><code class="sig-name descname">Servo</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">ID</em><span class="sig-paren">)</span><a class="headerlink" href="#miniLib.Servo" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="miniLib.Servo.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">ID</em><span class="sig-paren">)</span><a class="headerlink" href="#miniLib.Servo.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize a Servo</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ID</strong> (<em>int</em>) – ID of the Servo [0,1,2,3]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="miniLib.Servo.angle">
+<code class="sig-name descname">angle</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">degree</em><span class="sig-paren">)</span><a class="headerlink" href="#miniLib.Servo.angle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the angle to rotate to</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>degree</strong> (<em>int</em>) – degree of the Servo</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p>…</p>
+</div>
+<div class="section" id="minilib-continiousservo">
+<h2><code class="docutils literal notranslate"><span class="pre">miniLib.ContiniousServo</span></code><a class="headerlink" href="#minilib-continiousservo" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="miniLib.ContiniousServo">
+<em class="property">class </em><code class="sig-prename descclassname">miniLib.</code><code class="sig-name descname">ContiniousServo</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">ID</em><span class="sig-paren">)</span><a class="headerlink" href="#miniLib.ContiniousServo" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="miniLib.ContiniousServo.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">ID</em><span class="sig-paren">)</span><a class="headerlink" href="#miniLib.ContiniousServo.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize a Continious Servo</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ID</strong> (<em>int</em>) – ID of the Continious Servo [0,1,2,3]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="miniLib.ContiniousServo.throttle">
+<code class="sig-name descname">throttle</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">power</em><span class="sig-paren">)</span><a class="headerlink" href="#miniLib.ContiniousServo.throttle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the throttle of the Continious Servo</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>power</strong> (<em>float</em>) – Power of the Continious Servo -1 to 1</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p>…</p>
 </div>
 </div>
 
