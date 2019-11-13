@@ -29,7 +29,7 @@ copyright = '2019, Abir'
 author = 'Abir'
 
 # The full version, including alpha/beta/rc tags
-release = '0.01a'
+release = '0.1'
 
 
 # -- General configuration ---------------------------------------------------
