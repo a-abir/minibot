@@ -18,7 +18,7 @@ setup(name='minilib',
       author_email='atikul10152002@gmail.com',
       license='MIT',
       install_requires=[
-          'pygame', 'adafruit-circuitpython-crickit'
+          'pygame', 'adafruit-circuitpython-crickit', 'minilib'
       ],
       packages=['minilib'],
       zip_safe=False,

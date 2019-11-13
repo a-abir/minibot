@@ -6,6 +6,7 @@ Documentation for MiniBot!
 
 |docs| |minibot|
 
+-----------
 
 - Minibot RTD : https://minibot.readthedocs.io
 
