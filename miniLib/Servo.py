@@ -1,6 +1,8 @@
-from parse import Servos, ContiniousServos
+from adafruit_crickit import crickit
 
 class Servo:
+    Servos = [crickit.servo_1, crickit.servo_2,
+              crickit.servo_3, crickit.servo_4]
     def __init__(self, ID):
         '''
         Initialize a Servo
@@ -8,7 +10,7 @@ class Servo:
         :param ID: ID of the Servo [0,1,2,3]
         :type ID: int
         '''
-        self.servo = Servos[ID]
+        self.servo = self.Servos[ID]
 
     def angle(self, degree):
         '''
@@ -21,6 +23,8 @@ class Servo:
 
 
 class ContiniousServo:
+    ContiniousServos = [crickit.continuous_servo_1, crickit.continuous_servo_2,
+                        crickit.continuous_servo_3, crickit.continuous_servo_4]
     def __init__(self, ID):
         '''
         Initialize a Continious Servo
@@ -28,7 +32,7 @@ class ContiniousServo:
         :param ID: ID of the Continious Servo [0,1,2,3]
         :type ID: int
         '''
-        self.servo = ContiniousServos[ID]
+        self.servo = self.ContiniousServos[ID]
 
     def throttle(self, power):
         '''

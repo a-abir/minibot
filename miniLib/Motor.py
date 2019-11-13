@@ -1,6 +1,7 @@
-from parse import Motors
+from adafruit_crickit import crickit
 
 class Motor:
+    Motors = [crickit.dc_motor_1, crickit.dc_motor_2]
     def __init__(self, ID):
         '''
         Inintialize the DC Motor
@@ -8,7 +9,7 @@ class Motor:
         :param ID: The ID of the Motor [0,1]
         :type ID: int
         '''
-        self.motor = Motors[ID]
+        self.motor = self.Motors[ID]
 
     def throttle(self, power):
         '''

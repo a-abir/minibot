@@ -7,7 +7,8 @@ class Joystick:
         '''
         pygame.init()
         pygame.joystick.init()
-        self.newJoystick(ID, deadband)
+        self.deadband = abs(deadband)
+        self.newJoystick(ID)
 
     def info(self):
         '''
@@ -27,20 +28,19 @@ class Joystick:
             print("Number of axes: {}".format(joystick.get_numaxes()))
             print("Number of buttons: {}".format(joystick.get_numbuttons()))
 
-    def newJoystick(self, id, deadband, _return=False):
+    def newJoystick(self, deviceID, _return=False):
         '''
         Setup a new joystick
 
-        :param id: ID of the joystick
-        :type id: int
+        :param deviceID: ID of the joystick
+        :type deviceID: int
         :param _return: return joystick instance, defaults to False
         :type _return: bool, optional
         :return: joystick instance if _return == True
         :rtype: pygame.joystick.Joystick
         '''
-        self.jstick = pygame.joystick.Joystick(id)
+        self.jstick = pygame.joystick.Joystick(deviceID)
         self.jstick.init()
-        self.deadband = abs(deadband)
         if _return:
             return self.jstick
 
