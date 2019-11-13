@@ -18,10 +18,11 @@ Documentation for MiniBot!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Setup Raspberry Pi
+   :caption: Setup RPI and Crickit
 
-   hardPrerequisites
-   softPrerequisites
+   crickitPrerequisites
+   rpiPrerequisites
+   hardwares
 
 
 .. toctree::

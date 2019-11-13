@@ -1,4 +1,4 @@
-from miniLib import Joystick, ArcadeDrive, Motor
+from minilib import Joystick, ArcadeDrive, Motor
 
 def main():
     left = Motor(0)

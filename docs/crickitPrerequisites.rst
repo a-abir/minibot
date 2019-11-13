@@ -1,6 +1,13 @@
-Hardware Prerequisites
+Crickit Prerequisites
 ======================
-*Setup Crickit PI for development*
+*Setup Crickit for development*
+
+
+.. note::
+
+    No additional power supply is needed for the following steps
+
+
 
 Update the Crickit
 *******************
@@ -22,16 +29,17 @@ Update the Crickit
 
 .. image:: https://cdn-learn.adafruit.com/assets/assets/000/057/192/medium640/circuit_playground_drag.png?1530840561
 
-
+7. Party!
 
 -------------------------------------
 
-Powering the Crickit
-********************
+Power Supply
+*******************
 
-Use the included battery charger power supply
+Now plug in the included battery bank for power supply
 
 
 .. __: https://learn.adafruit.com/adafruit-crickit-hat-for-raspberry-pi-linux-computers/overview
 
-*Refer to* `adafruit's`__ *website for further guidance*
+.. hint::
+   *For more help, refer to* `adafruit's`__ *website for further guidance*

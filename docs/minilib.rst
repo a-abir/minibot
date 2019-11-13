@@ -1,12 +1,12 @@
-miniLib Library
+minilib Library
 ================
 
 *Documentation for the Library*
 
-``miniLib.ArcadeDrive``
+``minilib.ArcadeDrive``
 ***********************
 
-.. class:: miniLib.ArcadeDrive (self, left, right)
+.. class:: minilib.ArcadeDrive (self, left, right)
 
    .. method:: __init__(self, left, right)
 
@@ -27,12 +27,12 @@ miniLib Library
       :param steerPower: Steer power from joystick axis
       :type steerPower: float
 
-...
 
-``miniLib.TankDrive``
+
+``minilib.TankDrive``
 **********************
 
-.. class:: miniLib.TankDrive (self, left, right)
+.. class:: minilib.TankDrive (self, left, right)
 
    .. method:: __init__(self, left, right)
 
@@ -53,12 +53,12 @@ miniLib Library
       :param rightPower: Steer power from joystick axis
       :type rightPower: float
 
-...
 
-``miniLib.Joystick``
+
+``minilib.Joystick``
 *********************
 
-.. class:: miniLib.Joystick (self, ID, deadband=0)
+.. class:: minilib.Joystick (self, ID, deadband=0)
 
    .. method:: __init__(self, ID, deadband=0)
 
@@ -84,12 +84,12 @@ miniLib Library
       :return: state of the button
       :rtype: bool
 
-...
 
-``miniLib.Motor``
+
+``minilib.Motor``
 *******************
 
-.. class:: miniLib.Motor (self, ID)
+.. class:: minilib.Motor (self, ID)
 
    .. method:: __init__(self, ID)
 
@@ -105,12 +105,11 @@ miniLib Library
       :param power: Value from -1 to 1
       :type power: float
 
-...
 
-``miniLib.Servo``
+``minilib.Servo``
 *******************
 
-.. class:: miniLib.Servo (self, ID)
+.. class:: minilib.Servo (self, ID)
 
    .. method:: __init__(self, ID)
 
@@ -126,12 +125,11 @@ miniLib Library
       :param degree: degree of the Servo
       :type degree: int
 
-...
 
-``miniLib.ContiniousServo``
+``minilib.ContiniousServo``
 ****************************
 
-.. class:: miniLib.ContiniousServo (self, ID)
+.. class:: minilib.ContiniousServo (self, ID)
 
    .. method:: __init__(self, ID)
 
@@ -146,5 +144,3 @@ miniLib Library
 
       :param power: Power of the Continious Servo -1 to 1
       :type power: float
-
-...

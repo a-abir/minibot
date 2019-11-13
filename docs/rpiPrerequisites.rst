@@ -1,24 +1,39 @@
-Software Prerequisites
-======================
+Raspberry-Pi Prerequisites
+==========================
 *Please run the following commands to setup the raspberry pi for code deployment*
+
+
+.. note::
+
+    Connect to a display using HDMI to run the code
+
+    Raspberry Pi password = ``raspberry``
+
+Power Supply
+*******************
+
+Use the included battery bank for power supply
+
 
 Update distribution packages
 ****************************
 
 *First lets update your distribution packages*
 
-``sudo apt-get update``
+``sudo apt-get update;``
 
-``sudo apt-get upgrade``
+``sudo apt-get upgrade;``
 
-``sudo reboot``
+``sudo reboot;``
 
 Install git, python3 & pip
 **************************
 
 *Next run the following commands to install git, python3 & pip*
 
-*Python3 is required*
+.. attention::
+
+   *Python3 is required*
 
 ``sudo apt-get install -y python3 git python3-pip``
 
@@ -35,7 +50,8 @@ Install smbus i2c-tools
 
 *Next run the following commands to add SMBus and I2C support to Python*
 
-``sudo apt-get install python-smbus``
+``sudo apt-get install python-smbus;``
+
 ``sudo apt-get install -y i2c-tools``
 
 I2C Kernal Support
@@ -47,7 +63,7 @@ I2C Kernal Support
 
 ``sudo raspi-config``
 
-*On the GUI select ``Interfacing Options`` followed by ``I2C``*
+On the GUI select **Interfacing Options** followed by **I2C**
 
 .. image:: https://cdn-learn.adafruit.com/assets/assets/000/045/258/medium800/learn_raspberry_pi_interfacing.png?1502764684
 
@@ -86,19 +102,23 @@ Run all at once
 .. code-block:: bash
 
    # Installations
-   sudo apt-get update
-   sudo apt-get upgrade
-   sudo reboot
-   sudo apt-get install -y python3 git python3-pip
-   sudo pip3 install RPI.GPIO adafruit-blinka
-   sudo apt-get install python-smbus
-   sudo apt-get install -y i2c-tools
-   sudo raspi-config
+   sudo apt-get update;
+   sudo apt-get upgrade;
+   sudo reboot;
+   sudo apt-get install -y python3 git python3-pip;
+   sudo pip3 install RPI.GPIO adafruit-blinka;
+   sudo apt-get install python-smbus;
+   sudo apt-get install -y i2c-tools;
    # User input is required [select Interfacing Options>>I2C>>yes]
-   sudo reboot
+   sudo raspi-config;
+
+   # Need to run separately
+   sudo reboot;
    sudo i2cdetect -y 1
 
 
 .. __: https://learn.adafruit.com/adafruit-crickit-hat-for-raspberry-pi-linux-computers/overview
-*Refer to* `adafruit's`__ *website for further guidance*
+
+.. hint::
+   *For more help, refer to* `adafruit's`__ *website for further guidance*
 

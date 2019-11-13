@@ -1,6 +1,6 @@
 Sample code
 ============
-*Sample code utilizing miniLib package*
+*Sample code utilizing minilib package*
 
 .. literalinclude:: ../test.py
    :language: python

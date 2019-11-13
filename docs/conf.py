@@ -15,10 +15,10 @@ import sys
 import sphinx_rtd_theme
 
 # sys.path.insert(0, os.path.abspath('.'))
-sys.path.insert(0, os.path.abspath('../miniLib'))
+sys.path.insert(0, os.path.abspath('../minilib'))
 sys.path.insert(0, os.path.abspath('../'))
 sys.path.insert(0, os.path.abspath('./'))
-print("Package PATH: ", os.path.abspath('../miniLib'))
+print("Package PATH: ", os.path.abspath('../minilib'))
 print("Module PATH: ", os.path.abspath('../'))
 
 
