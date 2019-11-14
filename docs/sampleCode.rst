@@ -8,11 +8,13 @@ Sample code
 .. code-block:: python
     :emphasize-lines: 1
 
-    from miniLib import Joystick, ArcadeDrive, Motor
-    left = Motor(0)
-    right = Motor(1)
-    jstick = Joystick(0)
-    robot = ArcadeDrive(left, right)
+    from miniLib import Joystick, Drive, Motor
+
+    left = Motor.Motor(0)
+    right = Motor.Motor(1)
+    jstick = Joystick.Joystick(0)
+    robot = Drive.ArcadeDrive(left, right)
+
     while True:
         forwardAxis = jstick.getAxis(1)
         steerAxis = jstick.getAxis(3)
