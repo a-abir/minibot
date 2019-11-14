@@ -4,7 +4,7 @@ minilib Library
 *Documentation for the Library*
 
 ``minilib.Drive.ArcadeDrive``
-*****************************
+-----------------------------
 
 .. class:: minilib.Drive.ArcadeDrive (self, left, right)
 
@@ -30,7 +30,7 @@ minilib Library
 
 
 ``minilib.Drive.TankDrive``
-***************************
+-----------------------------
 
 .. class:: minilib.Drive.TankDrive (self, left, right)
 
@@ -56,7 +56,7 @@ minilib Library
 
 
 ``minilib.Joystick.Joystick``
-******************************
+-----------------------------
 
 .. class:: minilib.Joystick.Joystick (self, ID, deadband=0)
 
@@ -87,7 +87,7 @@ minilib Library
 
 
 ``minilib.Motor.Motor``
-*******************
+-----------------------------
 
 .. class:: minilib.Motor.Motor (self, ID)
 
@@ -107,7 +107,7 @@ minilib Library
 
 
 ``minilib.Servo.Servo``
-***********************
+-----------------------------
 
 .. class:: minilib.Servo.Servo (self, ID)
 
@@ -127,7 +127,8 @@ minilib Library
 
 
 ``minilib.Servo.ContiniousServo``
-*********************************
+----------------------------------
+
 
 .. class:: minilib.Servo.ContiniousServo (self, ID)
 

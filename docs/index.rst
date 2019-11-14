@@ -17,7 +17,7 @@ Documentation for MiniBot!
 
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Setup RPI and Crickit
 
    crickitPrerequisites
@@ -26,7 +26,7 @@ Documentation for MiniBot!
 
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Programming
 
    programming
@@ -34,7 +34,7 @@ Documentation for MiniBot!
 
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
    :caption: Package minilib
 
    minilib
