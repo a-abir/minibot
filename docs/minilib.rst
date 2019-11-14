@@ -3,10 +3,10 @@ minilib Library
 
 *Documentation for the Library*
 
-``minilib.Drive.ArcadeDrive``
+``minilib.ArcadeDrive``
 -----------------------------
 
-.. class:: minilib.Drive.ArcadeDrive (self, left, right)
+.. class:: minilib.ArcadeDrive (self, left, right)
 
    .. method:: __init__(self, left, right)
 
@@ -29,10 +29,10 @@ minilib Library
 
 
 
-``minilib.Drive.TankDrive``
+``minilib.TankDrive``
 -----------------------------
 
-.. class:: minilib.Drive.TankDrive (self, left, right)
+.. class:: minilib.TankDrive (self, left, right)
 
    .. method:: __init__(self, left, right)
 
@@ -55,10 +55,10 @@ minilib Library
 
 
 
-``minilib.Joystick.Joystick``
+``minilib.Joystick``
 -----------------------------
 
-.. class:: minilib.Joystick.Joystick (self, ID, deadband=0)
+.. class:: minilib.Joystick (self, ID, deadband=0)
 
    .. method:: __init__(self, ID, deadband=0)
 
@@ -86,10 +86,10 @@ minilib Library
 
 
 
-``minilib.Motor.Motor``
+``minilib.Motor``
 -----------------------------
 
-.. class:: minilib.Motor.Motor (self, ID)
+.. class:: minilib.Motor (self, ID)
 
    .. method:: __init__(self, ID)
 
@@ -106,10 +106,10 @@ minilib Library
       :type power: float
 
 
-``minilib.Servo.Servo``
+``minilib.Servo``
 -----------------------------
 
-.. class:: minilib.Servo.Servo (self, ID)
+.. class:: minilib.Servo (self, ID)
 
    .. method:: __init__(self, ID)
 
@@ -126,11 +126,11 @@ minilib Library
       :type degree: int
 
 
-``minilib.Servo.ContiniousServo``
+``minilib.ContiniousServo``
 ----------------------------------
 
 
-.. class:: minilib.Servo.ContiniousServo (self, ID)
+.. class:: minilib.ContiniousServo (self, ID)
 
    .. method:: __init__(self, ID)
 

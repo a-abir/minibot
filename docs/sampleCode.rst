@@ -8,12 +8,12 @@ Sample code
 .. code-block:: python
     :emphasize-lines: 1
 
-    from miniLib import Joystick, Drive, Motor
+    from minilib import Joystick, ArcadeDrive, Motor
 
-    left = Motor.Motor(0)
-    right = Motor.Motor(1)
-    jstick = Joystick.Joystick(0)
-    robot = Drive.ArcadeDrive(left, right)
+    left = Motor(0)
+    right = Motor(1)
+    jstick = Joystick(0)
+    robot = ArcadeDrive(left, right)
 
     while True:
         forwardAxis = jstick.getAxis(1)
@@ -28,10 +28,10 @@ Sample code
     :emphasize-lines: 2
 
     import time
-    from miniLib import Motor
+    from minilib import Motor
 
-    motor_1 = Motor.Motor(0)
-    motor_2 = Motor.Motor(1)
+    motor_1 = Motor(0)
+    motor_2 = Motor(1)
 
     for _ in range(3):
         motor_1.throttle(1)
@@ -54,10 +54,10 @@ Sample code
     :emphasize-lines: 2
 
     import time
-    from miniLib import Servo
+    from minilib import Servo
 
-    servo_1 = Servo.Servo(0)
-    servo_2 = Servo.Servo(1)
+    servo_1 = Servo(0)
+    servo_2 = Servo(1)
 
     for _ in range(3):
         servo_1.angle(180)

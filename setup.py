@@ -9,8 +9,8 @@ def readme():
     except:
       return "Minibot"
 
-setup(name='miniLib',
-      version='0.16',
+setup(name='minilib',
+      version='0.17',
       long_description=readme(),
       description='Package for adafruit powered servo bots',
       url='http://github.com/atikul99/minibot',
@@ -20,7 +20,7 @@ setup(name='miniLib',
       install_requires=[
           'pygame', 'adafruit-circuitpython-crickit'
       ],
-      packages=['miniLib'],
+      packages=['minilib'],
       zip_safe=False,
       classifiers=[
     'Development Status :: 3 - Alpha',      # Chose either "3 - Alpha", "4 - Beta" or "5 - Production/Stable" as the current state of your package
