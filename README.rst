@@ -6,8 +6,10 @@ Documentation for MiniBot!
 
 |docs| |minibot|
 
------------
-
 - Minibot RTD : https://minibot.readthedocs.io
 
-- Minibot GitHub : https://github.com/Atikul99/minibot
+Installation
+=============
+
+... code-block: bash
+   python3 -m pip install minilib
