@@ -11,5 +11,4 @@ Documentation for MiniBot!
 Installation
 =============
 
-... code-block: bash
-   python3 -m pip install minilib
+ python3 -m pip install minilib
