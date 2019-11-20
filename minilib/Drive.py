@@ -11,22 +11,41 @@ class ArcadeDrive:
         self.left = left
         self.right = right
 
-    def calculate(self, forward, steer):
+    def calculate(self, fwd, rcw, a=0, b=1):
         '''
-        Internal function to calculate the left and right power
+        Arcade algorithm to compute left and right wheel commands
+        from forward and rotate-clockwise joystick commands.
 
-        :param forward: forward power
-        :type forward: float
-        :param steer: steer power
-        :type steer: float
-        :return: tuple of floats: power for left and right drive
-        :rtype: tuple
+        a=0 and b=1 provides the WPILib arcade behavior.
+
+        :param fwd: Forward command (-1 to +1)
+        :type fwd: float
+        :param turn: Rotate command (-1 to +1)
+        :type turn: float
+        :param a: amount to turn at 100% fwd in the range 0 to 1, defaults to 0
+        :type a: int, optional
+        :param b: amount to turn at   0% fwd in the range 0 to 1, defaults to 1
+        :type b: int, optional
+        :return: leftPower, rightPower
+        :rtype: (float, float)
         '''
-
-        # calculate left and right power
-        leftPower = forward - steer
-        rightPower = forward + steer
-        return leftPower, rightPower
+        def L(fwd, turn, a, b): return fwd + b*turn*(1-fwd)
+        def R(fwd, rcw, a, b): return fwd - b*rcw + fwd*rcw*(b-a-1)
+        if fwd >= 0:
+            if rcw >= 0:
+                left = L(fwd, rcw, a, b)
+                right = R(fwd, rcw, a, b)
+            else:
+                left = R(fwd, -rcw, a, b)
+                right = L(fwd, -rcw, a, b)
+        else:
+            if rcw >= 0:
+                left = -R(-fwd, rcw, a, b)
+                right = -L(-fwd, rcw, a, b)
+            else:
+                left = -L(-fwd, -rcw, a, b)
+                right = -R(-fwd, -rcw, a, b)
+        return left, right
 
     def drive(self, forwardPower, steerPower):
         '''
@@ -38,7 +57,8 @@ class ArcadeDrive:
         :param steerPower: Steer power from joystick axis
         :type steerPower: float
         '''
-        self.leftPower, self.rightPower = self.calculate(forwardPower, steerPower)
+        self.leftPower, self.rightPower = self.calculate(
+            forwardPower, steerPower)
         self.left.throttle(self.leftPower)
         self.right.throttle(self.rightPower)
 
@@ -66,5 +86,5 @@ class TankDrive:
         :param rightPower: Steer power from joystick axis
         :type rightPower: float
         '''
-        self.left.throttle(self.leftPower)
-        self.right.throttle(self.rightPower)
+        self.left.throttle(leftPower)
+        self.right.throttle(rightPower)
