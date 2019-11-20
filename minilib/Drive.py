@@ -1,5 +1,5 @@
 class ArcadeDrive:
-    def __init__(self, left, right):
+    def __init__(self, left, right, a=0, b=1):
         '''
         Setup Arcade drive
 
@@ -10,8 +10,10 @@ class ArcadeDrive:
         '''
         self.left = left
         self.right = right
+	self.a = a
+	self.b = b
 
-    def calculate(self, fwd, rcw, a=0, b=1):
+    def calculate(self, fwd, rcw, a, b):
         '''
         Arcade algorithm to compute left and right wheel commands
         from forward and rotate-clockwise joystick commands.
@@ -58,7 +60,7 @@ class ArcadeDrive:
         :type steerPower: float
         '''
         self.leftPower, self.rightPower = self.calculate(
-            forwardPower, steerPower)
+            forwardPower, steerPower, self.a, self.b)
         self.left.throttle(self.leftPower)
         self.right.throttle(self.rightPower)
 
