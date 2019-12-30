@@ -10,7 +10,7 @@ def readme():
       return "Minibot"
 
 setup(name='minilib',
-      version='0.21',
+      version='0.22',
       long_description=readme(),
       description='Package for adafruit powered servo bots',
       url='http://github.com/atikul99/minibot',

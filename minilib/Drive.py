@@ -10,8 +10,8 @@ class ArcadeDrive:
         '''
         self.left = left
         self.right = right
-	self.a = a
-	self.b = b
+        self.a = a
+        self.b = b
 
     def calculate(self, fwd, rcw, a, b):
         '''
